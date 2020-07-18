@@ -320,7 +320,6 @@ void GSdxApp::Init()
 	m_default_configuration["CaptureFileName"]                            = "";
 	m_default_configuration["CaptureVideoCodecDisplayName"]               = "";
 	m_default_configuration["dx_break_on_severity"]                       = "0";
-	m_default_configuration["windowed"]                                   = "1";
 	// D3D Blending option
 	m_default_configuration["accurate_blending_unit_d3d11"]               = "1";
 #else
@@ -342,6 +341,7 @@ void GSdxApp::Init()
 	m_default_configuration["debug_glsl_shader"]                          = "0";
 	m_default_configuration["debug_opengl"]                               = "0";
 	m_default_configuration["disable_hw_gl_draw"]                         = "0";
+	m_default_configuration["dithering_ps2"]                              = "1";
 	m_default_configuration["dump"]                                       = "0";
 	m_default_configuration["extrathreads"]                               = "2";
 	m_default_configuration["extrathreads_height"]                        = "4";
@@ -412,10 +412,6 @@ void GSdxApp::Init()
 	m_default_configuration["upscale_multiplier"]                         = "1";
 	m_default_configuration["UserHacks"]                                  = "0";
 	m_default_configuration["UserHacks_align_sprite_X"]                   = "0";
-#ifdef _WIN32
-	// Direct3D only hacks.
-	m_default_configuration["UserHacks_AlphaStencil"]                     = "0";
-#endif
 	m_default_configuration["UserHacks_AutoFlush"]                        = "0";
 	m_default_configuration["UserHacks_DisableDepthSupport"]              = "0";
 	m_default_configuration["UserHacks_Disable_Safe_Features"]            = "0";
