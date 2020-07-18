@@ -148,7 +148,13 @@ EXPORT_C_(int) GSinit()
 		g_const->Init();
 
 #ifdef _WIN32
+
 	s_hr = ::CoInitializeEx(NULL, COINIT_MULTITHREADED);
+
+	if (!GSDevice11::LoadD3DCompiler())
+	{
+		return -1;
+	}
 #endif
 
 	return 0;
@@ -164,12 +170,16 @@ EXPORT_C GSshutdown()
 	theApp.SetCurrentRendererType(GSRendererType::Undefined);
 
 #ifdef _WIN32
+
 	if(SUCCEEDED(s_hr))
 	{
 		::CoUninitialize();
 
 		s_hr = E_FAIL;
 	}
+
+	GSDevice11::FreeD3DCompiler();
+
 #endif
 }
 
@@ -815,7 +825,34 @@ EXPORT_C GSconfigure()
 EXPORT_C_(int) GStest()
 {
 	if(!GSUtil::CheckSSE())
+	{
 		return -1;
+	}
+
+#ifdef _WIN32
+
+	s_hr = ::CoInitializeEx(NULL, COINIT_MULTITHREADED);
+
+	if(!GSUtil::CheckDirectX())
+	{
+		if(SUCCEEDED(s_hr))
+		{
+			::CoUninitialize();
+		}
+
+		s_hr = E_FAIL;
+
+		return -1;
+	}
+
+	if(SUCCEEDED(s_hr))
+	{
+		::CoUninitialize();
+	}
+
+	s_hr = E_FAIL;
+
+#endif
 
 	return 0;
 }
